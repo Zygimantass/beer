@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"encoding/csv"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -10,12 +11,6 @@ import (
 )
 
 func main() {
-
-	//data, err := ioutil.ReadFile("geocodes.csv")
-	//if err != nil {
-	//	panic(err)
-	//}
-	//fmt.Print(string(data))
 
 	csvFile, _ := os.Open("geocodes.csv")
 	csvReader := csv.NewReader(bufio.NewReader(csvFile))
@@ -70,48 +65,23 @@ func main() {
 		lat: 51.355468,
 		lon: 11.100790,
 	}
-	currPoint := firstPoint
-	fuel := 2000.0
-	visited := make(map[int]bool)
-	visited[firstPoint.id] = true
 
-	for {
-		if fuel < 0 {
-			break
+	//firstPoint := Coordinate {
+	//	id: -1,
+	//	lat: 54.895589,
+	//	lon: 23.886463,
+	//}
+
+	path := findPath(firstPoint, coordinates, 2000)
+
+	//breweries := getBreweriesFromCsv("breweries.csv")
+
+	for _, brewery := range path.points {
+		if brewery.id == -1 {
+			//log.Println("HOME")
+			//continue
 		}
-
-		minDistance := 99999.0
-		minPoint := Coordinate {
-
-		}
-
-		for _, point := range coordinates {
-			id := point.id
-
-			if point != currPoint {
-				dist := currPoint.distance(point)
-				distHome := firstPoint.distance(point)
-
-				if dist + distHome > fuel {
-					continue
-				}
-
-				if dist != 0 && dist < minDistance && !visited[id] {
-					minPoint = point
-					minDistance = dist + distHome
-				}
-			}
-		}
-
-
-		if minDistance == 99999.0 {
-			break
-		}
-
-		distance := currPoint.distance(minPoint)
-		currPoint = minPoint
-		visited[minPoint.id] = true
-
-		fuel -= distance
+		fmt.Printf("/+%f,+%f", brewery.lat, brewery.lon)
+		//log.Printf("%v, %s, %f, %f", brewery.id, breweries[brewery.id].name, brewery.lat, brewery.lon)
 	}
 }
