@@ -1,8 +1,8 @@
-package main
+package app
 
 type Path struct {
 	fuelUsed float64
-	points []Coordinate
+	points   []Coordinate
 }
 
 func findPath(origin Coordinate, edges []Coordinate, fuel float64) Path {
@@ -34,7 +34,7 @@ func findPath(origin Coordinate, edges []Coordinate, fuel float64) Path {
 			dist := currentPoint.distance(point)
 			distHome := origin.distance(point)
 
-			if dist + distHome > fuel { // check if we can make it back home from the next point
+			if dist+distHome > fuel { // check if we can make it back home from the next point
 				continue
 			}
 
@@ -64,7 +64,7 @@ func findPath(origin Coordinate, edges []Coordinate, fuel float64) Path {
 
 	points = append(points, origin)
 
-	return Path {
+	return Path{
 		fuelUsed,
 		points,
 	}

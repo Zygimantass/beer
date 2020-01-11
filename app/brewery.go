@@ -1,4 +1,4 @@
-package main
+package app
 
 import (
 	"bufio"
@@ -10,16 +10,16 @@ import (
 )
 
 type Brewery struct {
-	id int
-	name string
+	id       int
+	name     string
 	address1 string
 	address2 string
-	city string
-	state string
-	code string
-	country string
-	phone string
-	website string
+	city     string
+	state    string
+	code     string
+	country  string
+	phone    string
+	website  string
 	filepath string
 	descript string
 }
@@ -53,8 +53,8 @@ func getBreweriesFromCsv(filename string) map[int]Brewery {
 		}
 
 		breweries[id] = Brewery{
-			id: id,
-			name: line[1],
+			id:       id,
+			name:     line[1],
 			address1: line[2],
 		}
 	}

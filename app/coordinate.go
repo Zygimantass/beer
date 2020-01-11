@@ -1,9 +1,9 @@
-package main
+package app
 
 import "math"
 
 type Coordinate struct {
-	id int
+	id       int
 	lat, lon float64
 }
 
@@ -19,7 +19,7 @@ func (c1 *Coordinate) distance(c2 Coordinate) float64 {
 	lat1 := deg2rad(c1.lat)
 	lat2 := deg2rad(c2.lat)
 
-	a := math.Pow(math.Sin(distLat / 2), 2) + math.Pow(math.Sin(distLon / 2), 2) * math.Cos(lat1) * math.Cos(lat2) // haversine formula of two points
+	a := math.Pow(math.Sin(distLat/2), 2) + math.Pow(math.Sin(distLon/2), 2)*math.Cos(lat1)*math.Cos(lat2) // haversine formula of two points
 
 	distance := 2 * earthRadius * math.Asin(math.Sqrt(a))
 
