@@ -3,8 +3,9 @@ package app
 import "github.com/Zygimantass/beer-backend/models"
 
 type Path struct {
-	FuelUsed float64          `json:"fuelUsed"`
-	Points   []models.Brewery `json:"points"'`
+	FuelUsed  float64          `json:"fuelUsed"`
+	Points    []models.Brewery `json:"points"`
+	BeerCount int              `json:"beerCount"`
 }
 
 func findPath(origin models.Brewery, edges []models.Brewery, fuel float64) Path {
@@ -23,7 +24,7 @@ func findPath(origin models.Brewery, edges []models.Brewery, fuel float64) Path 
 			break // check if more fuel is left
 		}
 
-		minDistance := 99999.0
+		minWeight := 99999.0
 		minPoint := models.Brewery{}
 
 		for _, point := range edges {
@@ -40,13 +41,15 @@ func findPath(origin models.Brewery, edges []models.Brewery, fuel float64) Path 
 				continue
 			}
 
-			if dist != 0 && dist < minDistance && !visited[id] { // check if we have been in the point and if it is the nearest point so far
+			weight := (dist + distHome) / float64(point.BeerTypeCount) // weight is based on distance versus count of beer types
+
+			if dist != 0 && weight < minWeight && !visited[id] { // check if we have been in the point and if it is the nearest point so far
 				minPoint = point
-				minDistance = dist + distHome
+				minWeight = weight
 			}
 		}
 
-		if minDistance == 99999.0 || minPoint.Id == 0 {
+		if minWeight == 99999.0 || minPoint.Id == 0 {
 			break
 		}
 

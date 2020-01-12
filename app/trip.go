@@ -21,3 +21,7 @@ func (a *App) GetTrip(lat float64, lon float64) (*Path, error) {
 
 	return &path, nil
 }
+
+func (a *App) GetBeerCount(breweries []models.Brewery) (int, error) {
+	return a.Database.GetBeerCount(breweries)
+}
