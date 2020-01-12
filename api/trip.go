@@ -58,6 +58,14 @@ func (trm *TripRouteManager) GetTrip(w http.ResponseWriter, r *http.Request) {
 	}
 
 	path.BeerCount = beerCount
+
+	beerTypes, err := trm.api.App.GetBeerTypes(path.Points)
+	if err != nil {
+		http.Error(w, "Something went wrong", http.StatusInternalServerError)
+		log.Fatal(err.Error())
+	}
+
+	path.BeerTypes = beerTypes
 	fmt.Printf("%+v", path)
 
 	pathJson, err := json.Marshal(path)

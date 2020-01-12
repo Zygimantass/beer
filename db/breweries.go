@@ -75,3 +75,44 @@ func (db *Database) GetBeerCount(breweries []models.Brewery) (int, error) {
 
 	return beerCount, nil
 }
+
+func (db *Database) GetBeerTypes(breweries []models.Brewery) ([]string, error) {
+	query := "SELECT beers.name FROM breweries\n" +
+		"INNER JOIN beers ON breweries.id = beers.brewery_id " +
+		"WHERE"
+
+	for i, brewery := range breweries {
+		whereStmt := " breweries.id = " + strconv.Itoa(brewery.Id)
+		if i != len(breweries)-1 { // add OR statement if it isn't the last brewery
+			whereStmt += " OR"
+		}
+		query += whereStmt
+	}
+
+	query += ";"
+
+	println(query)
+
+	rows, err := db.Connection.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	var beerTypes []string
+
+	for rows.Next() {
+		var beerType string
+
+		err := rows.Scan(&beerType)
+		if err != nil {
+			log.Fatal(err)
+			return nil, err
+		}
+
+		beerTypes = append(beerTypes, beerType)
+	}
+
+	return beerTypes, nil
+}

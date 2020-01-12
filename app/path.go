@@ -6,6 +6,7 @@ type Path struct {
 	FuelUsed  float64          `json:"fuelUsed"`
 	Points    []models.Brewery `json:"points"`
 	BeerCount int              `json:"beerCount"`
+	BeerTypes []string		   `json:"beerTypes"`
 }
 
 func findPath(origin models.Brewery, edges []models.Brewery, fuel float64) Path {
