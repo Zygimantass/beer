@@ -7,9 +7,9 @@ import (
 
 func (db *Database) GetBreweries() ([]models.Brewery, error) {
 	rows, err := db.Connection.Query("SELECT breweries.id, coordinates.latitude, " +
-                          			 "coordinates.longitude, breweries.name, breweries.address1 " +
-									 "FROM beer.coordinates\n" +
-                           			 "INNER JOIN beer.breweries ON breweries.id = coordinates.brewery_id;")
+		"coordinates.longitude, breweries.name, breweries.address1 " +
+		"FROM beer.coordinates\n" +
+		"INNER JOIN beer.breweries ON breweries.id = coordinates.brewery_id;")
 
 	if err != nil {
 		return nil, err
@@ -24,8 +24,8 @@ func (db *Database) GetBreweries() ([]models.Brewery, error) {
 		}
 
 		err := rows.Scan(&brewery.Id, &brewery.Location.Lat,
-						 &brewery.Location.Lon, &brewery.Name,
-						 &brewery.Address1)
+			&brewery.Location.Lon, &brewery.Name,
+			&brewery.Address1)
 		if err != nil {
 			log.Fatal(err)
 			continue

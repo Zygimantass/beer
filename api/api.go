@@ -6,9 +6,9 @@ import (
 )
 
 type API struct {
-	App *app.App
+	App    *app.App
 	Config *Config
-	TRM *TripRouteManager
+	TRM    *TripRouteManager
 }
 
 func New(a *app.App) (api *API, err error) {

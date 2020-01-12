@@ -13,7 +13,7 @@ type TripRouteManager struct {
 	api *API
 }
 
-func (trm *TripRouteManager) TripRoutes () *chi.Mux {
+func (trm *TripRouteManager) TripRoutes() *chi.Mux {
 	r := chi.NewRouter()
 	r.Get("/find", trm.GetTrip)
 	return r
@@ -29,7 +29,7 @@ func (trm *TripRouteManager) GetTrip(w http.ResponseWriter, r *http.Request) {
 
 	latitudeFloat, err := strconv.ParseFloat(latitude[0], 64)
 
-	if (err != nil) {
+	if err != nil {
 		http.Error(w, "Your latitude argument is invalid", http.StatusBadRequest)
 		return
 	}
@@ -61,5 +61,3 @@ func (trm *TripRouteManager) GetTrip(w http.ResponseWriter, r *http.Request) {
 
 	w.Write(pathJson)
 }
-
-

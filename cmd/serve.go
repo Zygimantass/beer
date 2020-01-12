@@ -22,7 +22,7 @@ func serveAPI(ctx context.Context, api *api.API) {
 	router.Mount("/api/v1", api.Init())
 
 	server := &http.Server{
-		Addr: fmt.Sprintf(":%d", api.Config.Port),
+		Addr:    fmt.Sprintf(":%d", api.Config.Port),
 		Handler: router,
 	}
 
@@ -39,7 +39,7 @@ func serveAPI(ctx context.Context, api *api.API) {
 		close(done)
 	}()
 
-	log.Printf("serving beer-backend at port %d\n", api.Config.Port);
+	log.Printf("serving beer-backend at port %d\n", api.Config.Port)
 	if err := server.ListenAndServe(); err != http.ErrServerClosed {
 		log.Fatal(err.Error())
 	}
@@ -48,7 +48,7 @@ func serveAPI(ctx context.Context, api *api.API) {
 }
 
 var serveCmd = &cobra.Command{
-	Use: "serve",
+	Use:   "serve",
 	Short: "Serves the baceknd to a public port",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		app, err := app.New()
@@ -63,7 +63,7 @@ var serveCmd = &cobra.Command{
 
 		ctx, cancel := context.WithCancel(context.Background())
 
-		go func () {
+		go func() {
 			ch := make(chan os.Signal, 1)
 			signal.Notify(ch, os.Interrupt)
 			<-ch

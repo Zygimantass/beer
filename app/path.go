@@ -3,7 +3,7 @@ package app
 import "github.com/Zygimantass/beer-backend/models"
 
 type Path struct {
-	FuelUsed float64 `json:"fuelUsed"`
+	FuelUsed float64          `json:"fuelUsed"`
 	Points   []models.Brewery `json:"points"'`
 }
 
@@ -68,6 +68,6 @@ func findPath(origin models.Brewery, edges []models.Brewery, fuel float64) Path 
 
 	return Path{
 		FuelUsed: fuelUsed,
-		Points: points,
+		Points:   points,
 	}
 }

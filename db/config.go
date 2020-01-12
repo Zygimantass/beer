@@ -6,14 +6,14 @@ import (
 )
 
 type DatabaseConfig struct {
-	URI string
+	URI      string
 	Username string
 	Password string
 }
 
 func InitDatabaseConfig() (*DatabaseConfig, error) {
-	dbConfig := &DatabaseConfig {
-		URI: viper.GetString("db.uri"),
+	dbConfig := &DatabaseConfig{
+		URI:      viper.GetString("db.uri"),
 		Username: viper.GetString("db.username"),
 		Password: viper.GetString("db.password"),
 	}
