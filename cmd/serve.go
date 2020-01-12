@@ -7,6 +7,7 @@ import (
 	"github.com/Zygimantass/beer-backend/app"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/cors"
 	"github.com/spf13/cobra"
 	"log"
 	"net/http"
@@ -16,7 +17,17 @@ import (
 )
 
 func serveAPI(ctx context.Context, api *api.API) {
+	corsRules := cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders: []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		ExposedHeaders: []string{"Link"},
+		AllowCredentials: true,
+		MaxAge: 300,
+	})
+
 	router := chi.NewRouter()
+	router.Use(corsRules.Handler)
 	router.Use(middleware.Logger)
 
 	router.Mount("/api/v1", api.Init())
