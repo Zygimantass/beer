@@ -1,7 +1,10 @@
 package api
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/go-chi/chi"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -12,7 +15,7 @@ type TripRouteManager struct {
 
 func (trm *TripRouteManager) TripRoutes () *chi.Mux {
 	r := chi.NewRouter()
-
+	r.Get("/find", trm.GetTrip)
 	return r
 }
 
@@ -42,7 +45,21 @@ func (trm *TripRouteManager) GetTrip(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_ := trm.api.App.GetTrip(latitudeFloat, longitudeFloat)
+	path, err := trm.api.App.GetTrip(latitudeFloat, longitudeFloat)
+	if err != nil {
+		http.Error(w, "Something went wrong", http.StatusInternalServerError)
+		log.Fatal(err.Error())
+	}
+
+	fmt.Printf("%+v", path)
+
+	pathJson, err := json.Marshal(path)
+	if err != nil {
+		http.Error(w, "Something went wrong", http.StatusInternalServerError)
+		log.Fatal(err.Error())
+	}
+
+	w.Write(pathJson)
 }
 
 

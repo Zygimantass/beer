@@ -1,20 +1,22 @@
 package app
 
+import "github.com/Zygimantass/beer-backend/models"
+
 type Path struct {
-	fuelUsed float64
-	points   []Coordinate
+	FuelUsed float64 `json:"fuelUsed"`
+	Points   []models.Brewery `json:"points"'`
 }
 
-func findPath(origin Coordinate, edges []Coordinate, fuel float64) Path {
+func findPath(origin models.Brewery, edges []models.Brewery, fuel float64) Path {
 	currentPoint := origin
 
-	var points []Coordinate
+	var points []models.Brewery
 	points = append(points, currentPoint)
 
 	fuelUsed := 0.0
 
 	visited := make(map[int]bool)
-	visited[currentPoint.id] = true
+	visited[currentPoint.Id] = true
 
 	for {
 		if fuel < 0 {
@@ -22,17 +24,17 @@ func findPath(origin Coordinate, edges []Coordinate, fuel float64) Path {
 		}
 
 		minDistance := 99999.0
-		minPoint := Coordinate{}
+		minPoint := models.Brewery{}
 
 		for _, point := range edges {
-			id := point.id
+			id := point.Id
 
 			if point == currentPoint {
 				continue
 			}
 
-			dist := currentPoint.distance(point)
-			distHome := origin.distance(point)
+			dist := currentPoint.Location.Distance(point.Location)
+			distHome := origin.Location.Distance(point.Location)
 
 			if dist+distHome > fuel { // check if we can make it back home from the next point
 				continue
@@ -44,20 +46,20 @@ func findPath(origin Coordinate, edges []Coordinate, fuel float64) Path {
 			}
 		}
 
-		if minDistance == 99999.0 || minPoint.id == 0 {
+		if minDistance == 99999.0 || minPoint.Id == 0 {
 			break
 		}
 
-		distance := currentPoint.distance(minPoint)
+		distance := currentPoint.Location.Distance(minPoint.Location)
 		currentPoint = minPoint
-		visited[minPoint.id] = true
+		visited[minPoint.Id] = true
 
 		points = append(points, currentPoint)
 		fuel -= distance
 		fuelUsed += distance
 	}
 
-	distHome := currentPoint.distance(origin)
+	distHome := currentPoint.Location.Distance(origin.Location)
 
 	fuel -= distHome
 	fuelUsed += distHome
@@ -65,7 +67,7 @@ func findPath(origin Coordinate, edges []Coordinate, fuel float64) Path {
 	points = append(points, origin)
 
 	return Path{
-		fuelUsed,
-		points,
+		FuelUsed: fuelUsed,
+		Points: points,
 	}
 }

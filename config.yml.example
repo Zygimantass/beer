@@ -1,0 +1,5 @@
+port: 7777
+db:
+  uri: 127.0.0.1:3306
+  username: ChangeThis
+  password: ChangeThisToo
