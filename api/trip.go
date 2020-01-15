@@ -36,7 +36,7 @@ func (trm *TripRouteManager) GetTrip(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if latitude <= -90 || latitude > 90 {
+	if latitudeFloat <= -90 || latitudeFloat > 90 {
 		http.Error(w, "The latitude has to be between -90 and 90 degrees", http.StatusBadRequest)
 	}
 
@@ -51,7 +51,7 @@ func (trm *TripRouteManager) GetTrip(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if longitude <= -180 || longitude >= 180 {
+	if longitudeFloat <= -180 || longitudeFloat >= 180 {
 		http.Error(w, "The latitude has to be between -180 and 180 degrees", http.StatusBadRequest)
 	}
 
