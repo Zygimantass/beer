@@ -83,7 +83,7 @@ func (db *Database) GetBeerTypes(breweries []models.Brewery) ([]string, error) {
 		"WHERE"
 
 	for i, brewery := range breweries {
-		whereStmt := " breweries.id = " + strconv.Itoa(brewery.Id)
+		whereStmt := " breweries.id = " + strconv.Itoa(brewery.ID)
 		if i != len(breweries)-1 { // add OR statement if it isn't the last brewery
 			whereStmt += " OR"
 		}
