@@ -91,8 +91,6 @@ func (db *Database) GetBeerTypes(breweries []models.Brewery) ([]string, error) {
 
 	query += ";"
 
-	println(query)
-
 	rows, err := db.Connection.Query(query)
 	if err != nil {
 		return nil, err

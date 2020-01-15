@@ -2,7 +2,6 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/go-chi/chi"
 	"log"
 	"net/http"
@@ -66,7 +65,6 @@ func (trm *TripRouteManager) GetTrip(w http.ResponseWriter, r *http.Request) {
 	}
 
 	path.BeerTypes = beerTypes
-	fmt.Printf("%+v", path)
 
 	pathJson, err := json.Marshal(path)
 	if err != nil {
