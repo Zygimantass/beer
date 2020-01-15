@@ -2,8 +2,8 @@ package models_test
 
 import (
 	"github.com/Zygimantass/beer/models"
-	"github.com/stretchr/testify/assert"
 	"testing"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestDistance(t *testing.T) {

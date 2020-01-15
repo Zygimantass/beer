@@ -12,7 +12,7 @@ func (a *App) GetTrip(lat float64, lon float64) (*Path, error) {
 		return nil, err
 	}
 
-	path := findPath(models.Brewery{
+	path := FindPath(models.Brewery{
 		ID:   -1,
 		Name: "Home",
 		Location: models.Coordinate{

@@ -10,8 +10,8 @@ type Path struct {
 	BeerTypes []string		   `json:"beerTypes"` // what were the beers tasted
 }
 
-// findPath returns the optimal route given the edges and fuel constraints
-func findPath(origin models.Brewery, edges []models.Brewery, fuel float64) Path {
+// FindPath returns the optimal route given the edges and fuel constraints
+func FindPath(origin models.Brewery, edges []models.Brewery, fuel float64) Path {
 	currentPoint := origin
 
 	var points []models.Brewery
