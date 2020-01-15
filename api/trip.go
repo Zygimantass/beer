@@ -25,26 +25,34 @@ func (trm *TripRouteManager) GetTrip(w http.ResponseWriter, r *http.Request) {
 	latitude, ok := r.URL.Query()["lat"]
 
 	if !ok || len(latitude) < 1 {
-		http.Error(w, "You have to include the latitude of your coordinates", http.StatusBadRequest)
+		http.Error(w, "The latitude of the coordinates has to be included in the request", http.StatusBadRequest)
 		return
 	}
 
 	latitudeFloat, err := strconv.ParseFloat(latitude[0], 64)
 
 	if err != nil {
-		http.Error(w, "Your latitude argument is invalid", http.StatusBadRequest)
+		http.Error(w, "The latitude argument is invalid", http.StatusBadRequest)
 		return
+	}
+
+	if latitude <= -90 || latitude > 90 {
+		http.Error(w, "The latitude has to be between -90 and 90 degrees", http.StatusBadRequest)
 	}
 
 	longitude, ok := r.URL.Query()["lon"]
 	if !ok || len(longitude) < 1 {
-		http.Error(w, "You have to include the longitude of your coordinates", http.StatusBadRequest)
+		http.Error(w, "The longitude of the coordinates has to be included in the request", http.StatusBadRequest)
 	}
 
 	longitudeFloat, err := strconv.ParseFloat(longitude[0], 64)
 	if err != nil {
-		http.Error(w, "Your longitude argument is invalid", http.StatusBadRequest)
+		http.Error(w, "The longitude argument is invalid", http.StatusBadRequest)
 		return
+	}
+
+	if longitude <= -180 || longitude >= 180 {
+		http.Error(w, "The latitude has to be between -180 and 180 degrees", http.StatusBadRequest)
 	}
 
 	path, err := trm.api.App.GetTrip(latitudeFloat, longitudeFloat)
