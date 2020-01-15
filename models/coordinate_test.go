@@ -1,7 +1,7 @@
 package models_test
 
 import (
-	"github.com/Zygimantass/beer-backend/models"
+	"github.com/Zygimantass/beer/models"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
