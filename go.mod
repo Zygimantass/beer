@@ -1,4 +1,4 @@
-module github.com/Zygimantass/beer-backend
+module github.com/Zygimantass/beer
 
 go 1.13
 
