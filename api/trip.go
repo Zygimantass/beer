@@ -38,11 +38,13 @@ func (trm *TripRouteManager) GetTrip(w http.ResponseWriter, r *http.Request) {
 
 	if latitudeFloat <= -90 || latitudeFloat > 90 {
 		http.Error(w, "The latitude has to be between -90 and 90 degrees", http.StatusBadRequest)
+		return
 	}
 
 	longitude, ok := r.URL.Query()["lon"]
 	if !ok || len(longitude) < 1 {
 		http.Error(w, "The longitude of the coordinates has to be included in the request", http.StatusBadRequest)
+		return
 	}
 
 	longitudeFloat, err := strconv.ParseFloat(longitude[0], 64)
@@ -53,6 +55,7 @@ func (trm *TripRouteManager) GetTrip(w http.ResponseWriter, r *http.Request) {
 
 	if longitudeFloat <= -180 || longitudeFloat >= 180 {
 		http.Error(w, "The latitude has to be between -180 and 180 degrees", http.StatusBadRequest)
+		return
 	}
 
 	path, err := trm.api.App.GetTrip(latitudeFloat, longitudeFloat)
