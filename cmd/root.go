@@ -15,6 +15,7 @@ var rootCmd = &cobra.Command{
 	},
 }
 
+// Execute calls the root command function
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)

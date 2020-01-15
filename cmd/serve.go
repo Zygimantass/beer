@@ -3,8 +3,8 @@ package cmd
 import (
 	"context"
 	"fmt"
-	"github.com/Zygimantass/beer-backend/api"
-	"github.com/Zygimantass/beer-backend/app"
+	"github.com/Zygimantass/beer/api"
+	"github.com/Zygimantass/beer/app"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"

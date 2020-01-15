@@ -1,14 +1,16 @@
 package app
 
-import "github.com/Zygimantass/beer-backend/models"
+import "github.com/Zygimantass/beer/models"
 
+// Path represents the path found by our algorithm
 type Path struct {
-	FuelUsed  float64          `json:"fuelUsed"`
-	Points    []models.Brewery `json:"points"`
-	BeerCount int              `json:"beerCount"`
-	BeerTypes []string		   `json:"beerTypes"`
+	FuelUsed  float64          `json:"fuelUsed"` // how much fuel was used along the way
+	Points    []models.Brewery `json:"points"` // breweries in the path
+	BeerCount int              `json:"beerCount"` // how many beers can be tasted
+	BeerTypes []string		   `json:"beerTypes"` // what were the beers tasted
 }
 
+// findPath returns the optimal route given the edges and fuel constraints
 func findPath(origin models.Brewery, edges []models.Brewery, fuel float64) Path {
 	currentPoint := origin
 
@@ -18,7 +20,7 @@ func findPath(origin models.Brewery, edges []models.Brewery, fuel float64) Path 
 	fuelUsed := 0.0
 
 	visited := make(map[int]bool)
-	visited[currentPoint.Id] = true
+	visited[currentPoint.ID] = true
 
 	for {
 		if fuel < 0 {
@@ -29,7 +31,7 @@ func findPath(origin models.Brewery, edges []models.Brewery, fuel float64) Path 
 		minPoint := models.Brewery{}
 
 		for _, point := range edges {
-			id := point.Id
+			id := point.ID
 
 			if point == currentPoint {
 				continue
@@ -50,13 +52,13 @@ func findPath(origin models.Brewery, edges []models.Brewery, fuel float64) Path 
 			}
 		}
 
-		if minWeight == 99999.0 || minPoint.Id == 0 {
+		if minWeight == 99999.0 || minPoint.ID == 0 {
 			break
 		}
 
 		distance := currentPoint.Location.Distance(minPoint.Location)
 		currentPoint = minPoint
-		visited[minPoint.Id] = true
+		visited[minPoint.ID] = true
 
 		points = append(points, currentPoint)
 		fuel -= distance

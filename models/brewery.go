@@ -1,5 +1,6 @@
 package models
 
+// Brewery represents a brewery from the data
 type Brewery struct {
 	Id            int        `json:"id"`
 	Name          string     `json:"name"`

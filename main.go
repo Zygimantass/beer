@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Zygimantass/beer-backend/cmd"
+	"github.com/Zygimantass/beer/cmd"
 	"log"
 )
 

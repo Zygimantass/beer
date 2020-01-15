@@ -2,6 +2,7 @@ package models
 
 import "math"
 
+// Coordinate represents some coordinates on Earth
 type Coordinate struct {
 	Lat float64 `json:"latitude"`
 	Lon float64 `json:"longitude"`
@@ -11,6 +12,7 @@ func deg2rad(degrees float64) float64 {
 	return degrees * math.Pi / 180
 }
 
+// Distance returns the distance between two coordinates
 func (c1 *Coordinate) Distance(c2 Coordinate) float64 {
 	const earthRadius = 6371
 

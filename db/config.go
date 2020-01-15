@@ -5,12 +5,14 @@ import (
 	"github.com/spf13/viper"
 )
 
+// DatabaseConfig represents the config of the database
 type DatabaseConfig struct {
 	URI      string
 	Username string
 	Password string
 }
 
+// InitDatabaseConfig gets the configuration from the Viper file and returns a DatabaseConfig object
 func InitDatabaseConfig() (*DatabaseConfig, error) {
 	dbConfig := &DatabaseConfig{
 		URI:      viper.GetString("db.uri"),

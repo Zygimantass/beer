@@ -8,16 +8,19 @@ import (
 	"strconv"
 )
 
+// TripRouteManager manages routes related to trip finding
 type TripRouteManager struct {
 	api *API
 }
 
+// TripRoutes mounts trip endpoints to the router
 func (trm *TripRouteManager) TripRoutes() *chi.Mux {
 	r := chi.NewRouter()
 	r.Get("/find", trm.GetTrip)
 	return r
 }
 
+// GetTrip parses request's arguments and returns the nearest path given by App.GetTrip
 func (trm *TripRouteManager) GetTrip(w http.ResponseWriter, r *http.Request) {
 	latitude, ok := r.URL.Query()["lat"]
 
@@ -66,11 +69,11 @@ func (trm *TripRouteManager) GetTrip(w http.ResponseWriter, r *http.Request) {
 
 	path.BeerTypes = beerTypes
 
-	pathJson, err := json.Marshal(path)
+	pathJSON, err := json.Marshal(path)
 	if err != nil {
 		http.Error(w, "Something went wrong", http.StatusInternalServerError)
 		log.Fatal(err.Error())
 	}
 
-	w.Write(pathJson)
+	w.Write(pathJSON)
 }

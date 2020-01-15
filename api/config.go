@@ -5,10 +5,12 @@ import (
 	"github.com/spf13/viper"
 )
 
+// Config provides configuration to the API object
 type Config struct {
 	Port int
 }
 
+// InitConfig gets configuration from the Viper file
 func InitConfig() (*Config, error) {
 	config := &Config{
 		Port: viper.GetInt("port"),

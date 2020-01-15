@@ -1,11 +1,13 @@
 package app
 
-import "github.com/Zygimantass/beer-backend/db"
+import "github.com/Zygimantass/beer/db"
 
+// App provides business functionality and connection to the database
 type App struct {
 	Database *db.Database
 }
 
+// New returns an App object
 func New() (app *App, err error) {
 	app = &App{}
 

@@ -1,11 +1,12 @@
 package db
 
 import (
-	"github.com/Zygimantass/beer-backend/models"
+	"github.com/Zygimantass/beer/models"
 	"log"
 	"strconv"
 )
 
+// GetBreweries returns all of the breweries combined with their beers and coordinates
 func (db *Database) GetBreweries() ([]models.Brewery, error) {
 	rows, err := db.Connection.Query("SELECT breweries.id, coordinates.latitude, " +
 		"coordinates.longitude, breweries.name, breweries.address1," +
@@ -26,7 +27,7 @@ func (db *Database) GetBreweries() ([]models.Brewery, error) {
 			Location: models.Coordinate{},
 		}
 
-		err := rows.Scan(&brewery.Id, &brewery.Location.Lat,
+		err := rows.Scan(&brewery.ID, &brewery.Location.Lat,
 			&brewery.Location.Lon, &brewery.Name,
 			&brewery.Address1, &brewery.BeerTypeCount)
 		if err != nil {
@@ -40,6 +41,7 @@ func (db *Database) GetBreweries() ([]models.Brewery, error) {
 	return breweries, nil
 }
 
+// GetBeerCount returns the amount of beers in the database given by the breweries
 func (db *Database) GetBeerCount(breweries []models.Brewery) (int, error) {
 	query := "SELECT COUNT(DISTINCT beers.id) FROM breweries\n" +
 		"INNER JOIN beers ON breweries.id = beers.brewery_id " +
@@ -54,8 +56,6 @@ func (db *Database) GetBeerCount(breweries []models.Brewery) (int, error) {
 	}
 
 	query += ";"
-
-	println(query)
 
 	rows, err := db.Connection.Query(query)
 	if err != nil {
@@ -76,6 +76,7 @@ func (db *Database) GetBeerCount(breweries []models.Brewery) (int, error) {
 	return beerCount, nil
 }
 
+// GetBeerTypes returns the beers in the database given by their breweries
 func (db *Database) GetBeerTypes(breweries []models.Brewery) ([]string, error) {
 	query := "SELECT beers.name FROM breweries\n" +
 		"INNER JOIN beers ON breweries.id = beers.brewery_id " +
